@@ -31,6 +31,10 @@ app.post("/create/order", async (req, res) => {
   try {
     const response = await createOrder(req, res);
 
+    if (response.status !== 200) {
+      throw new Error(response.data.errorMsg || "Failed to create order");
+    }
+
     console.log("RESPONSE", response);
 
     const rawRequest = response.rawRequest;
